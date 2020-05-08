@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, findByTestId } from "@testing-library/react";
 import CheckoutForm from "./CheckoutForm";
 
 // Write up the two tests here and make sure they are testing what the title shows
@@ -13,7 +13,7 @@ test("form header renders", () => {
 });
 
 test("form shows success message on submit with form details", () => {
-    const { getByLabelText } = render(<CheckoutForm />);
+    const { getByLabelText, getByTestId, findAllByText } = render(<CheckoutForm />);
 
     //Form Input Queries
     const firstInput = getByLabelText(/First Name/i);
@@ -43,6 +43,8 @@ test("form shows success message on submit with form details", () => {
         target: { name: "zip", value: "02114" }
     }); 
 
-    console.log(firstInput.value)
+    const submitButton = getByTestId(/checkout-btn/i);
+    fireEvent.click(submitButton);
 
+    findByTestId(/successMessage/i);
 });
