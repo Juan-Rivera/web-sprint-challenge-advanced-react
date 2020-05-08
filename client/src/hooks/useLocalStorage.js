@@ -1,12 +1,13 @@
 
 import { useState } from 'react';
 
-function useLocalStorage(key, initialValue){
+export function useLocalStorage(key, initialValue){
     // THIS IS THE VALUE PART OF THE HOOK
     const [storedValue, setStoredValue] = useState(() => {
         if (window.localStorage.getItem(key)) {
           return JSON.parse(window.localStorage.getItem(key));
         }
+        //stores key and initialValue in the localStorage (in the applications tab of the dev tools)
         window.localStorage.setItem(key, JSON.stringify(initialValue));
         return initialValue;
       });
@@ -20,4 +21,3 @@ function useLocalStorage(key, initialValue){
 
     return [storedValue, setValue];
 } 
-export default useLocalStorage
